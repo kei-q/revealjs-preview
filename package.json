@@ -1,9 +1,11 @@
 {
   "name": "revealjs-preview",
   "main": "./lib/revealjs-preview",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "preview revealjs slides",
-  "activationEvents": ["revealjs-preview:toggle"],
+  "activationEvents": [
+    "revealjs-preview:toggle"
+  ],
   "repository": "https://github.com/keqh/revealjs-preview",
   "license": "MIT",
   "engines": {
