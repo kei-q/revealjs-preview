@@ -1,0 +1,20 @@
+{
+  "name": "revealjs-preview",
+  "main": "./lib/revealjs-preview",
+  "version": "0.0.1",
+  "description": "preview revealjs slides",
+  "activationEvents": ["revealjs-preview:toggle"],
+  "repository": "https://github.com/keqh/revealjs-preview",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "fs-plus": "2.x",
+    "pathwatcher": "0.19.0",
+    "temp": "0.6.x",
+    "underscore-plus": "1.x",
+    "wrench": "1.5.x",
+    "reveal.js": "2.6.2"
+  }
+}
