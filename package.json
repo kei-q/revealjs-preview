@@ -1,7 +1,7 @@
 {
   "name": "revealjs-preview",
   "main": "./lib/revealjs-preview",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "preview revealjs slides",
   "activationEvents": [
     "revealjs-preview:toggle"
