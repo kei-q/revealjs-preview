@@ -1,9 +1,9 @@
 path = require 'path'
 _ = require 'underscore-plus'
-{$, $$$, View} = require 'atom'
-
+{$, $$$, View} = require 'atom-space-pen-views'
 _Markdown = require 'reveal.js/plugin/markdown/markdown'
 Reveal = require './reveal.js'
+{CompositeDisposable} = require 'atom'
 
 module.exports =
 class ReealjsPreviewView extends View
@@ -12,11 +12,12 @@ class ReealjsPreviewView extends View
 
   constructor: (@editorId) ->
     super
+    @subscriptions = new CompositeDisposable
     if @editorId?
       @resolveEditor(@editorId)
 
   destroy: ->
-    @unsubscribe()
+    @subscriptions.dispose()
 
   resolveEditor: (editorId) ->
     resolve = =>
@@ -31,36 +32,39 @@ class ReealjsPreviewView extends View
         @renderSlide()
 
   editorForId: (editorId) ->
-    _.find atom.workspace.getEditors(), (editor) ->
+    _.find atom.workspace.getTextEditors(), (editor) ->
       editor.id?.toString() is editorId
 
   handleEvents: ->
     changeHandler = =>
       @renderSlide()
-      pane = atom.workspace.paneForUri(@getUri())
+      pane = atom.workspace.paneForURI(@getUri())
       if pane? and pane isnt atom.workspace.getActivePane()
         pane.activateItem(this)
 
-    @subscribe(@editor.getBuffer(), 'saved', changeHandler)
+    @subscriptions.add @editor.onDidSave(changeHandler)
+    #@subscriptions.add @editor.onDidChange(changeHandler)
 
   renderSlide: ->
     @showLoading()
-
     text = @resolvePath(@editor.getText())
     css = """
-    <link rel="stylesheet" href="./default.css" type="text/css" />
+    <link rel="stylesheet" href="./css/reveal.css" type="text/css" />
+    <link rel="stylesheet" href="./css/theme/black.css" id="theme" />
     """
     @html """
-<div class="reveal"><div class="slides">
-#{_Markdown.slidify(text)}
-</div></div>
+<div class="reveal">
+  <div class="slides">
+    #{_Markdown.slidify(text)}
+  </div>
+</div>
 #{@resolvePath(css)}
 """
-
     _Markdown.processSlides()
     _Markdown.convertSlides()
 
     Reveal.initialize
+      keyboard: true
       center: false
       transition: 'slide'
       backgroundTransition: 'slide'
@@ -70,7 +74,7 @@ class ReealjsPreviewView extends View
   checkSlidePosition: ->
     point = @editor.getCursorBufferPosition()
     forwardText = @editor.getTextInBufferRange([[0,0], point])
-    if result = forwardText.match(/\n---\n/g)
+    if result = forwardText.match(/^\r?\n---\r?\n$/g)
       result.length
     else
       0

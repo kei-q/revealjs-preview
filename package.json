@@ -1,22 +1,24 @@
 {
   "name": "revealjs-preview",
+  "version": "0.2.1",
   "main": "./lib/revealjs-preview",
-  "version": "0.1.1",
   "description": "preview revealjs slides",
-  "activationEvents": [
-    "revealjs-preview:toggle"
-  ],
   "repository": "https://github.com/keqh/revealjs-preview",
   "license": "MIT",
   "engines": {
-    "atom": "*"
+    "atom": ">=1.1.0"
   },
+  "activationEvents": [
+    "revealjs-preview:toggle"
+  ],
   "dependencies": {
+    "atom-space-pen-views": "2.1.0",
+    "path": "0.12.7",
     "fs-plus": "2.x",
-    "pathwatcher": "^2.0",
-    "temp": "0.6.x",
+    "pathwatcher": "6.2.x",
+    "temp": "0.8.x",
     "underscore-plus": "1.x",
     "wrench": "1.5.x",
-    "reveal.js" : "2.6.2"
+    "reveal.js": "3.1.0"
   }
 }
