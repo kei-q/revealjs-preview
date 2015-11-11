@@ -1,6 +1,6 @@
 {
   "name": "revealjs-preview",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "main": "./lib/revealjs-preview",
   "description": "preview revealjs slides",
   "repository": "https://github.com/keqh/revealjs-preview",
