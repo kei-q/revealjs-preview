@@ -45,12 +45,19 @@ class ReealjsPreviewView extends View
     @subscriptions.add @editor.onDidSave(changeHandler)
     #@subscriptions.add @editor.onDidChange(changeHandler)
 
+  getRevealjsPrevewDirPath: ->
+    filtered = atom.packages.getAvailablePackagePaths().filter (x) -> x.indexOf('revealjs-preview') > -1
+    _.first(filtered)
+
   renderSlide: ->
     @showLoading()
+
+    package_dir_path = @getRevealjsPrevewDirPath()
+
     text = @resolvePath(@editor.getText())
     css = """
-    <link rel="stylesheet" href="./css/reveal.css" type="text/css" />
-    <link rel="stylesheet" href="./css/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="#{package_dir_path}/css/reveal.css" type="text/css" />
+    <link rel="stylesheet" href="#{package_dir_path}/css/theme/black.css" id="theme" />
     """
     @html """
 <div class="reveal">
