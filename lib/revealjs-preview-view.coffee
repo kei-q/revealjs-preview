@@ -81,7 +81,7 @@ class ReealjsPreviewView extends View
   checkSlidePosition: ->
     point = @editor.getCursorBufferPosition()
     forwardText = @editor.getTextInBufferRange([[0,0], point])
-    if result = forwardText.match(/^\r?\n---\r?\n$/g)
+    if result = forwardText.match(/\r?\n---\r?\n/g)
       result.length
     else
       0
